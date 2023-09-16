@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as ExpoContacts from 'expo-contacts';
 import { ContactList } from '../components/ContactList';
+import FavouriteContact from '../components/FavouriteContact';
 
 export type SortedContactType = Array<{
   title: string;
@@ -86,10 +87,13 @@ export default function Contacts() {
         <FontAwesome name='search' size={16} color='#DEDEDE' />
         <TextInput
           placeholder='Search contacts'
+          value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
         />
       </View>
 
+      {/* Hide the favourite when searching contact */}
+      {!searchQuery && <FavouriteContact />}
       <ContactList phoneContacts={filteredContacts} />
     </View>
   );

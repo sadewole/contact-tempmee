@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import * as ExpoContacts from 'expo-contacts';
+import { useContact } from '../context/ContactContext';
 
 const Divider = () => (
   <View
@@ -17,15 +18,28 @@ const Divider = () => (
 
 export default function ContactDetails({ navigation, route }: BaseScreenProps) {
   const { item } = route.params as { item: ExpoContacts.Contact };
+  const { favourite, setFavourite } = useContact();
+
+  const makeFavourite = () => {
+    setFavourite(favourite?.id !== item?.id ? item : undefined);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TouchableOpacity
           style={{ flexDirection: 'row', gap: 4 }}
           onPress={() => navigation.goBack()}
         >
           <FontAwesome name='chevron-left' size={16} color='#5B85EB' />
           <Text style={{ color: '#5B85EB' }}>Go back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ marginRight: 20 }} onPress={makeFavourite}>
+          <AntDesign
+            name={favourite?.id === item?.id ? 'star' : 'staro'}
+            size={24}
+            color='black'
+          />
         </TouchableOpacity>
       </View>
 
