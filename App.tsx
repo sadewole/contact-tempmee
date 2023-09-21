@@ -5,8 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Contacts from './screens/Contacts';
 import ContactDetails from './screens/ContactDetails';
 import { ContactProvider } from './context/ContactContext';
+import { RootStackParamList } from './typeRoute';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (

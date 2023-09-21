@@ -7,8 +7,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import * as ExpoContacts from 'expo-contacts';
 import { useContact } from '../context/ContactContext';
+import { RootStackScreenProps } from '../typeRoute';
+
+type BaseScreenProps = RootStackScreenProps<'ContactDetails'>;
 
 const Divider = () => (
   <View
@@ -17,7 +19,7 @@ const Divider = () => (
 );
 
 export default function ContactDetails({ navigation, route }: BaseScreenProps) {
-  const { item } = route.params as { item: ExpoContacts.Contact };
+  const { item } = route.params;
   const { favourite, setFavourite } = useContact();
 
   const makeFavourite = () => {

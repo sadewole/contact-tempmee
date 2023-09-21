@@ -9,7 +9,7 @@ export const ContactList = ({
 }: {
   phoneContacts: SortedContactType;
 }) => {
-  const navigation = useNavigation<BaseScreenProps>();
+  const navigation = useNavigation();
 
   const renderSectionHeader = ({ section }: { section: { title: string } }) => (
     <View style={styles.sectionHeader}>

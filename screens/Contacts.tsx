@@ -16,26 +16,28 @@ export default function Contacts() {
   );
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  React.useEffect(() => {
-    (async () => {
-      const { status } = await ExpoContacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await ExpoContacts.getContactsAsync({
-          fields: [
-            ExpoContacts.Fields.PhoneNumbers,
-            ExpoContacts.Fields.Emails,
-            ExpoContacts.Fields.Company,
-            ExpoContacts.Fields.Addresses,
-            ExpoContacts.Fields.Birthday,
-          ],
-        });
+  const fetchPhoneContacts = React.useCallback(async () => {
+    const { status } = await ExpoContacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const { data } = await ExpoContacts.getContactsAsync({
+        fields: [
+          ExpoContacts.Fields.PhoneNumbers,
+          ExpoContacts.Fields.Emails,
+          ExpoContacts.Fields.Company,
+          ExpoContacts.Fields.Addresses,
+          ExpoContacts.Fields.Birthday,
+        ],
+      });
 
-        if (data.length > 0) {
-          const sortedContacts = organizeContacts(data);
-          setPhoneContacts(sortedContacts);
-        }
+      if (data.length > 0) {
+        const sortedContacts = organizeContacts(data);
+        setPhoneContacts(sortedContacts);
       }
-    })();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchPhoneContacts();
   }, []);
 
   const organizeContacts = (contacts: ExpoContacts.Contact[]) => {

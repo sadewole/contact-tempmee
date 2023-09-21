@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useContact } from '../context/ContactContext';
 
 export default function FavouriteContact() {
-  const navigation = useNavigation<BaseScreenProps>();
+  const navigation = useNavigation();
   const { favourite } = useContact();
   if (!favourite) return null;
   return (
